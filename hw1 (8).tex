@@ -1,0 +1,239 @@
+\documentclass{homework}
+% \author{Tashfeen, Ahmad}
+\class{CSCI 2114: Tashfeen's Data Structures}
+% \date{\today}
+\title{Homework 1}
+\address{%
+  Oklahoma City University, %
+  Petree College of Arts \& Sciences, %
+  Computer Science%
+}
+
+\acmfonts
+\newcommand\callit[1]{Store the code in a file called \texttt{#1}.}
+\newcommand\docs{\href{%
+    https://tinyurl.com/25w2e4wy%
+  }{%
+    \texttt{Byte.toUnsignedInt(byte x)}%
+  }%
+}
+
+\begin{document} \maketitle
+
+\question Briefly define the following terms in context of computer
+hardware.
+
+\begin{enumerate}
+  \item Register
+  \item Memory
+  \item Disk
+\end{enumerate}
+
+\question What is the smallest addressable unit of memory in most modern
+computers?
+
+\question Give the number of bytes in the following memory units as either 2
+or 10 raised to an appropriate power. For example, a Kibibyte
+(KiB) is $2^{10}$ bytes while a Kilobyte (KB) is $10^3$ bytes.
+
+\begin{enumerate}
+  \item Mebibyte (MiB)
+  \item Megabyte (MB)
+  \item Gibibyte (GiB)
+  \item Gigabyte (GB)
+  \item Tebibyte (TiB)
+  \item Terabyte (TB)
+  \item Pebibyte (TiB)
+  \item Petabyte (TB)
+\end{enumerate}
+
+Why is there a need for two byte-prefixed unit systems?
+
+\question Java class in listing \ref{types} prints the maximum numerical
+value each Java primitive type can store. Explain how these are
+calculated \ie their connection to register size and numerical
+sign.
+
+\lstinputlisting[
+  language={java},
+  caption={Java class to print maximum values of primitive types.},
+  label=types]
+{code/Constants.java}
+
+\question Write a Java program that prints out one line of text to the
+console. It can be anything but ``Hello World!'' What did you
+print? \callit{Anything.java}
+
+\question Write a Java program that populates an array of size $n$ with the
+first $n$ Fibonacci numbers. The program should print out the
+array as shown in figure \ref{exmp}. Here $n$ should be the first
+command line argument. You may do it anyway you like but one and
+arguably the most elegant way to do it is recursively as shown in
+the listing \ref{fib}. What is the name of the implicit call
+structure that is used in listing \ref{fib}? Hint: Stack Overflow.
+\callit{Fibonacci.java}
+
+\lstinputlisting[
+  linerange={22-26},
+  language={java},
+  caption={Java function to generate the Fibonacci sequence.},
+  label=fib]
+{code/Fibonacci.java}
+
+\question Using the
+\href{https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes}{Sieve
+  of Eratosthenes}, populate a boolean array of size $n$ (Java
+booleans initialise to false) marking all the indices that are
+Composite numbers to true. Here $n$ should be the first command
+line argument. The indices remaining false at the end should be
+Prime numbers. \callit{Eratosthenes.java}
+
+\begin{enumerate}
+  \item For debugging, have your program print all the prime numbers less
+        than a 100. You should get the following: $ 2, 3, 5, 7, 11, 13,
+          17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79,
+          83, 89, 97. $
+  \item The program should print out at most the five largest prime
+        numbers it computed and the time (seconds) it took to compute all
+        the primes less than $n$. Here is a way to compute seconds taken
+        by a function call \texttt{eratosthenes(toSieve)}.
+
+        \begin{lstlisting}[language=java]
+double startTime = System.nanoTime();
+eratosthenes(toSieve);
+double duration = System.nanoTime() - startTime;
+duration = duration / Math.pow(10, 9);
+\end{lstlisting}
+
+  \item With your program, calculate how long does it take (in seconds) to
+        compute all the 30 bit prime numbers. These are all primes less
+        than $n = 2^{30} = 1073741824$.
+
+  \item Can your implementation of the Sieve of Eratosthenes compute all
+        the 32 bit prime numbers? If yes, give the time it takes or if it
+        can not, then why not?
+\end{enumerate}
+
+\question\label{32bitprimes} Read all bytes in the file
+\href{https://tinyurl.com/24bvsnaf}{\texttt{half\_gaps.bin}}. You may
+use the function in code listing \ref{byte}.
+
+\lstinputlisting[
+  linerange={36-44},
+  language={java},
+  caption={Java function to read in a file's (signed) bytes.},
+  label=byte]
+{code/Primes.java}
+
+The function in code listing \ref{byte} reads in signed bytes.
+While this maybe suitable for some binary arrangements, we want
+the bytes to be unsigned. One way to achieve this is to just loop
+and use \docs{} as seen in listing \ref{long}.
+
+\lstinputlisting[
+  linerange={9-13},
+  language={java},
+  caption={Converting Java signed bytes to unsigned longs.},
+  label=long]
+{code/Primes.java}
+
+Compute the array of integers' cumulative sum \ie
+\[
+  \curl{x_i \in \mathtt{cumsum}(x) : x_i = \sum_{k=1}^{i} x_k}
+\]
+Now multiply each of the sums with 2 and then add a 3.
+\[
+  \curl{x_i \in \mathtt{cumsum}(x) :
+    y_i = 2x_i+3 = 2\paren{\sum_{k=1}^{i} x_k}+3}
+\]
+\begin{enumerate}
+  \item Print out the first fifteen and the last five elements of this
+        final array.
+  \item Time this program (the reading of bytes, the cumulative sum
+        computation and the doubling with adding a three) and print the
+        result in seconds.
+  \item Do you recognise the printed numbers? What will these be if we
+        further prepended a 2 and a 3 to them?
+\end{enumerate}
+
+\callit{Primes.java}
+
+\question Accumulate the approximate probability that an integer $2 \leq x
+  \leq 2^{31}-1$ is prime. You can do this by generating random
+numbers between $2$ and $2^{31}-1$ within a big enough loop and
+check if the number is prime (this is known as a primality test)
+by searching for it in the array of prime numbers we constructed
+in
+question \ref{32bitprimes}.  The main loop is shown in listing
+\ref{primality}.  You need to implement the linear search and the
+binary search and uncomment each, one at a time to report the times in
+seconds taken by each type of search.
+
+\lstinputlisting[
+  linerange={19-28},
+  language={java},
+  caption={Linear and binary search for a prime number.},
+  label=primality]
+{code/Search.java}
+
+Does the printed number converge? \callit{Search.java}
+
+\question Break the Affine cipher. Your professor encrypted a plain text
+file called \texttt{plain.txt} using the program given in listing
+\ref{cipher}. \callit{Decipher.java}
+
+He then redirected the output to a cipher file called
+\href{https://tinyurl.com/24pjud2t}{\texttt{cipher.txt}}.
+
+\begin{enumerate}
+  \item Use the cipher text file and the code in listing \ref{cipher} to
+        recover the plain text. \textit{Hint}: $7^{-1} = 55 \mod 2^7$.
+  \item What should the $2^7$ tell you about the text encoding of the
+        original plain text file?
+\end{enumerate}
+
+\lstinputlisting[
+  language={java},
+  caption={An Affine cipher in Java.},
+  label=cipher]
+{code/Decipher.java}
+
+\section{Example Executions}
+
+Figure \ref{exmp} shows how the output of the code for the files
+\texttt{Fibonacci.java} and \texttt{Eratosthenes.java} should look
+like on the standard out. All your programs must compile/run from
+the command line using \texttt{javac} and \texttt{java} commands,
+e. g.,
+
+\begin{verbatim}
+javac Program.java
+java Program
+\end{verbatim}
+
+\img<exmp>[0.65]
+{Example execution of the code for the first three questions.} {media/example.png}
+
+\section{Submission Instructions}
+
+\begin{itemize}
+  \item Submit \texttt{Anything.java}, \texttt{Fibonacci.java},
+        \texttt{Eratosthenes.java}, \texttt{Primes.java},
+        \texttt{Search.java},
+
+        \noindent\texttt{Decipher.java} and
+        \texttt{sol.pdf} at the online classroom.
+
+  \item The files \texttt{Anything.java}, \texttt{Fibonacci.java},
+        \texttt{Eratosthenes.java}, \texttt{Primes.java},
+        \texttt{Search.java},
+
+        \noindent\texttt{Decipher.java} should contain the
+        Java source code for the relevant questions. Do not turn in the dot class files.
+
+  \item The PDF file \texttt{sol.pdf} should contain written answers to
+        questions as well as a screenshot similar to the one in figure \ref{exmp}
+        that demonstrates your code being compiled and ran.
+\end{itemize}
+
+\end{document}
