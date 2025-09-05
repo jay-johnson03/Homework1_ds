@@ -16,15 +16,6 @@ public class Eratosthenes {
         duration = duration / Math.pow(10 , 9);
         System.out.printf("Eratosthenes took %.3f seconds\n", duration);
 
-        // printing out the prime numbers (aka i up to 15)
-        /* System.out.println("The first 15 prime numbers are: ");
-        int count = 0;
-         for (int i = 2; i < places.length && count < 15; i++) {
-            if (!places[i]) {
-                 System.out.printf("%d  ", i);
-                 count++;
-            }
-        }*/
 
         // printing out the last 5 prime numbers
         System.out.println(" ");
