@@ -19,8 +19,8 @@ public class Search {
     // conducting a million trials to see how many times the random number is prime 
     for (int i = 1; i <=1000000; i++) {
         long x = getRandomInt(2 , Integer . MAX_VALUE );
-        favourable += linearSearch (x , primes) ? 1.0 : 0.0;
-        //favourable += binarySearch (x , primes , 0 , primes . length - 1) ? 1.0 : 0.0;
+        //favourable += linearSearch (x , primes) ? 1.0 : 0.0;
+        favourable += binarySearch (x , primes , 0 , primes . length - 1) ? 1.0 : 0.0;
         System.out.println(favourable/i);
     }
     double duration = (System.nanoTime()-start)/Math.pow(10,9);

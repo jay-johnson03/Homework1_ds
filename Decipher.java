@@ -11,7 +11,7 @@ public class Decipher {
         // this loop is reassigning the values and reading the file
         for (int i = 0; i < m ; i ++)
             cipher [ i ] = ( char ) mod (55 * (i - 3) , m );
-            String plain = read ("Week 1\\cipher.txt");
+            String plain = read ("cipher.txt");
             // printing out the cipher text aka printing it character by character
         for (int i = 0; i < plain.length () ; i ++)
             //
